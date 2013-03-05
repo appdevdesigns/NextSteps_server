@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 3408
+# Version 4004
 #
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: localhost (MySQL 5.5.25)
+# Host: localhost (MySQL 5.6.10)
 # Database: ad_db
-# Generation Time: 2012-08-29 14:28:53 +0000
+# Generation Time: 2013-03-04 18:34:05 +0000
 # ************************************************************
 
 
@@ -27,7 +27,9 @@ DROP TABLE IF EXISTS `nextsteps_contact`;
 
 CREATE TABLE `nextsteps_contact` (
   `contact_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `contact_guid` varchar(60) NOT NULL,
   `viewer_id` int(11) unsigned NOT NULL,
+  `device_id` varchar(40) NOT NULL,
   `contact_recordId` int(11) unsigned DEFAULT NULL,
   `contact_firstName` text NOT NULL,
   `contact_lastName` text NOT NULL,
@@ -48,9 +50,18 @@ CREATE TABLE `nextsteps_contact` (
   `contact_engaged` date DEFAULT NULL,
   `contact_ministering` date DEFAULT NULL,
   `contact_multiplying` date DEFAULT NULL,
-  PRIMARY KEY (`contact_id`)
+  PRIMARY KEY (`contact_id`),
+  UNIQUE KEY `contact_guid` (`contact_guid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+DELIMITER ;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `contact_guid_trigger` BEFORE INSERT ON `nextsteps_contact` FOR EACH ROW BEGIN
+SET NEW.contact_guid = CONCAT(NEW.contact_id, '/', NEW.device_id);
+END */;;
+DELIMITER ;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 
 # Dump of table nextsteps_group
@@ -60,12 +71,23 @@ DROP TABLE IF EXISTS `nextsteps_group`;
 
 CREATE TABLE `nextsteps_group` (
   `group_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `group_guid` varchar(60) NOT NULL,
   `viewer_id` int(11) unsigned NOT NULL,
+  `device_id` varchar(40) NOT NULL,
   `group_name` text NOT NULL,
   `group_filter` text NOT NULL,
-  PRIMARY KEY (`group_id`)
+  PRIMARY KEY (`group_id`),
+  UNIQUE KEY `group_guid` (`group_guid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+DELIMITER ;;
+/*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `group_guid_trigger` BEFORE INSERT ON `nextsteps_group` FOR EACH ROW BEGIN
+SET NEW.group_guid = CONCAT(NEW.group_id, '/', NEW.device_id);
+END */;;
+DELIMITER ;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 
 # Dump of table nextsteps_year_data
@@ -83,14 +105,14 @@ LOCK TABLES `nextsteps_year_data` WRITE;
 
 INSERT INTO `nextsteps_year_data` (`year_id`)
 VALUES
-	(0),
 	(1),
 	(2),
 	(3),
 	(4),
 	(5),
 	(6),
-	(7);
+	(7),
+	(8);
 
 /*!40000 ALTER TABLE `nextsteps_year_data` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -114,14 +136,14 @@ LOCK TABLES `nextsteps_year_trans` WRITE;
 
 INSERT INTO `nextsteps_year_trans` (`trans_id`, `year_id`, `language_code`, `year_label`)
 VALUES
-	(0,0,'en','Unknown'),
-	(1,1,'en','Freshman'),
-	(2,2,'en','Sophmore'),
-	(3,3,'en','Junior'),
-	(4,4,'en','Senior'),
-	(5,5,'en','Graduated'),
-	(6,6,'en','Teacher'),
-	(7,7,'en','Other');
+	(1,1,'en','Unknown'),
+	(2,2,'en','Freshman'),
+	(3,3,'en','Sophmore'),
+	(4,4,'en','Junior'),
+	(5,5,'en','Senior'),
+	(6,6,'en','Graduated'),
+	(7,7,'en','Teacher'),
+	(8,8,'en','Other');
 
 /*!40000 ALTER TABLE `nextsteps_year_trans` ENABLE KEYS */;
 UNLOCK TABLES;
