@@ -35,7 +35,7 @@ CREATE TABLE `nextsteps_contact` (
   `contact_lastName` text NOT NULL,
   `contact_nickname` text,
   `contact_campus` text NOT NULL,
-  `year_id` int(11) NOT NULL DEFAULT '0',
+  `year_id` int(11) NOT NULL DEFAULT '1',
   `contact_phone` text,
   `contact_phoneId` text,
   `contact_email` text,
