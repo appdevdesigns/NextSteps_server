@@ -58,7 +58,7 @@ CREATE TABLE `nextsteps_contact` (
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `contact_guid_trigger` BEFORE INSERT ON `nextsteps_contact` FOR EACH ROW BEGIN
-SET NEW.contact_guid = CONCAT(NEW.contact_id, '/', NEW.device_id);
+SET NEW.contact_guid = CONCAT(NEW.contact_id, '.', NEW.device_id);
 END */;;
 DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
@@ -84,7 +84,7 @@ CREATE TABLE `nextsteps_group` (
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="NO_ENGINE_SUBSTITUTION" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `group_guid_trigger` BEFORE INSERT ON `nextsteps_group` FOR EACH ROW BEGIN
-SET NEW.group_guid = CONCAT(NEW.group_id, '/', NEW.device_id);
+SET NEW.group_guid = CONCAT(NEW.group_id, '.', NEW.device_id);
 END */;;
 DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
