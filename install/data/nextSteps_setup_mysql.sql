@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.10)
 # Database: ad_db
-# Generation Time: 2013-03-04 18:34:05 +0000
+# Generation Time: 2013-03-06 21:20:33 +0000
 # ************************************************************
 
 
@@ -50,8 +50,8 @@ CREATE TABLE `nextsteps_contact` (
   `contact_engaged` date DEFAULT NULL,
   `contact_ministering` date DEFAULT NULL,
   `contact_multiplying` date DEFAULT NULL,
-  PRIMARY KEY (`contact_id`),
-  UNIQUE KEY `contact_guid` (`contact_guid`)
+  PRIMARY KEY (`contact_guid`),
+  KEY `contact_id` (`contact_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -76,8 +76,8 @@ CREATE TABLE `nextsteps_group` (
   `device_id` varchar(40) NOT NULL,
   `group_name` text NOT NULL,
   `group_filter` text NOT NULL,
-  PRIMARY KEY (`group_id`),
-  UNIQUE KEY `group_guid` (`group_guid`)
+  PRIMARY KEY (`group_guid`),
+  KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
